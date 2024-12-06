@@ -13,6 +13,8 @@ GetX: For state management and simplified app architecture.
 SQLite (or any local DB): To store the check-in and check-out details locally.
 
 Screenshots
+![Screenshot_20241206_220452](https://github.com/user-attachments/assets/5318e161-bd2a-45d5-8f17-b3f9bf3b3563)
+![Screenshot_20241206_220310](https://github.com/user-attachments/assets/e35665d6-c7d1-4595-9782-ee18d58f1d35)
 
 
 
