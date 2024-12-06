@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:task/application/controller.dart';
 import 'package:task/presentation/add_car_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'domain/car_modal.dart';
 
 void main() {
@@ -50,32 +51,48 @@ class _MyHomePageState extends State<MyHomePage> {
       body: GetBuilder<Controller>(
         init: Controller(),
         builder: (ct) {
-          return Center(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Text("Checked In & CheckOut Car"),
-                  const SizedBox(height: 50),
-                  // Render list of both checked-in and checked-out cars
-                  _buildCarList(ct.bothCar, "No Cars CheckedIn & Out", ct),
-                  const SizedBox(height: 50),
-                  const Text("Checked In"),
-                  const SizedBox(height: 10),
-                  // Render list of checked-in cars
-                  _buildCarList(ct.checkedInCar, "No CheckedIn Cars", ct),
-                  const SizedBox(height: 20),
-                  // Add Car Button
-                  ElevatedButton(
-                    onPressed: () {
-                      Get.to(AddCarScreen());
-                    },
-                    child: const Text("Add Car"),
+          return Stack(
+            children: [
+              Center(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      const Text("Checked In & CheckOut Car"),
+                      const SizedBox(height: 50),
+                      // Render list of both checked-in and checked-out cars
+                      _buildCarList(ct.bothCar, "No Cars CheckedIn & Out", ct),
+                      const SizedBox(height: 50),
+                      const Text("Checked In"),
+                      const SizedBox(height: 10),
+                      // Render list of checked-in cars
+                      _buildCarList(ct.checkedInCar, "No CheckedIn Cars", ct),
+                      const SizedBox(height: 20),
+                      // Add Car Button
+                      ElevatedButton(
+                        onPressed: () {
+                          Get.to(AddCarScreen());
+                        },
+                        child: const Text("Add Car"),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+              GestureDetector(
+                onTap: () {
+                  _sendFeedback();
+                },
+                child: const Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Icon(
+                      Icons.feedback,
+                      color: Colors.blueAccent,
+                      size: 50.0,
+                    )),
+              ),
+            ],
           );
         },
       ),
@@ -149,5 +166,24 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       },
     );
+  }
+}
+
+void _sendFeedback() async {
+  final String email = 'patareharsh@gmail.com'; // Replace with your email
+  final String subject = 'Feedback for Car Check-In Check-Out System';
+  final String body =
+      'Hi,\n\nI would like to provide the following feedback:\n\n';
+
+  final Uri emailUri = Uri(
+    scheme: 'mailto',
+    path: email,
+    query: 'subject=$subject&body=${Uri.encodeComponent(body)}',
+  );
+
+  if (await canLaunchUrl(emailUri)) {
+    await launchUrl(emailUri);
+  } else {
+    throw 'Could not launch $emailUri';
   }
 }
