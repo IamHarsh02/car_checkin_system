@@ -1,17 +1,20 @@
 Car Check-In Check-Out System
+
 A Flutter application to manage the check-in and check-out records of cars, built with GetX state management.
 
 Features
-Car Management: Easily log car check-in and check-out times.
-Local Database: All data is stored locally, ensuring fast and offline access.
-Validation: Only predefined and valid car registration numbers can be logged.
-Home Screen: Intuitive UI to manage and view car check-in and check-out records.
+- Car Management: Easily log car check-in and check-out times.
+- Local Database: All data is stored locally, ensuring fast and offline access.
+- Validation: Only predefined and valid car registration numbers can be logged.
+- Home Screen: Intuitive UI to manage and view car check-in and check-out records.
 Technologies Used
 Flutter: Frontend framework for cross-platform development.
 GetX: For state management and simplified app architecture.
 SQLite (or any local DB): To store the check-in and check-out details locally.
+
 Screenshots
-(Add screenshots of your app here)
+
+
 
 Getting Started
 Follow these steps to run the project locally:
